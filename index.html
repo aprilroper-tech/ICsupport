@@ -6,15 +6,10 @@
   <title>IC Support — Executive Audit Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
-    :root {
-      --purple:#4B286D; --green:#66CC00; --teal:#00B0B2;
-      --red:#C12335; --amber:#F5A623; --bg:#F4F4F7;
-      --card:#fff; --border:#E0E0E6; --text:#1A1A2E; --muted:#6B6B80;
-    }
+    :root{--purple:#4B286D;--green:#66CC00;--teal:#00B0B2;--red:#C12335;--amber:#F5A623;--bg:#F4F4F7;--card:#fff;--border:#E0E0E6;--text:#1A1A2E;--muted:#6B6B80;}
     *{box-sizing:border-box;margin:0;padding:0;}
     body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);}
 
-    /* header */
     header{background:var(--purple);color:#fff;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;}
     .brand{display:flex;align-items:center;gap:12px;}
     .logo{width:38px;height:38px;background:var(--green);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:var(--purple);}
@@ -23,27 +18,24 @@
     .meta{text-align:right;font-size:0.73rem;opacity:.8;}
     .meta strong{display:block;font-size:0.85rem;opacity:1;}
 
-    /* entity tabs */
     .entity-nav{background:#fff;border-bottom:1px solid var(--border);display:flex;padding:0 40px;position:sticky;top:0;z-index:200;box-shadow:0 2px 6px rgba(0,0,0,.06);}
     .entity-btn{padding:13px 26px;font-size:0.85rem;font-weight:700;border:none;background:none;cursor:pointer;color:var(--muted);border-bottom:3px solid transparent;transition:all .15s;}
     .entity-btn.active{color:var(--purple);border-bottom-color:var(--green);}
     .entity-btn:hover{color:var(--purple);}
 
-    /* section banner */
     .sec-banner{padding:14px 40px;display:flex;align-items:center;justify-content:space-between;}
     .sec-banner.digital{background:linear-gradient(135deg,#4B286D,#6B3A8F);color:#fff;}
     .sec-banner.health{background:linear-gradient(135deg,#00B0B2,#007F80);color:#fff;}
+    .sec-banner.support{background:linear-gradient(135deg,#1A7A4A,#27AE60);color:#fff;}
     .sec-banner h2{font-size:1rem;font-weight:800;}
     .sec-banner p{font-size:0.74rem;opacity:.85;margin-top:2px;}
     .sec-banner .badge{font-size:0.68rem;font-weight:700;background:rgba(255,255,255,.2);padding:3px 10px;border-radius:20px;}
 
-    /* sub-section tabs */
     .sub-nav{background:#f9f8fc;border-bottom:1px solid var(--border);display:flex;padding:0 40px;gap:4px;}
     .sub-btn{padding:10px 20px;font-size:0.78rem;font-weight:600;border:none;background:none;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;transition:all .12s;}
     .sub-btn.active{color:var(--purple);border-bottom-color:var(--green);font-weight:700;}
     .sub-btn:hover{color:var(--purple);}
 
-    /* panels */
     .entity-panel{display:none;}
     .entity-panel.active{display:block;}
     .sub-panel{display:none;}
@@ -53,8 +45,8 @@
 
     .section-title{font-size:0.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--purple);margin:24px 0 12px;padding-bottom:5px;border-bottom:2px solid var(--green);}
     .section-title.teal{color:#007F80;border-bottom-color:var(--teal);}
+    .section-title.green{color:#1A7A4A;border-bottom-color:#27AE60;}
 
-    /* kpis */
     .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:4px;}
     .kpi{background:var(--card);border-radius:9px;border:1px solid var(--border);padding:15px 17px;position:relative;overflow:hidden;}
     .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--accent,var(--purple));}
@@ -62,7 +54,6 @@
     .kpi .lbl{font-size:0.66rem;color:var(--muted);margin-top:5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
     .kpi .sub{font-size:0.7rem;color:var(--muted);margin-top:3px;}
 
-    /* grid / cards */
     .grid{display:grid;gap:12px;}
     .g2{grid-template-columns:repeat(2,1fr);}
     .g3{grid-template-columns:repeat(3,1fr);}
@@ -70,33 +61,41 @@
     .card{background:var(--card);border-radius:9px;border:1px solid var(--border);padding:17px 19px;}
     .card h3{font-size:0.76rem;font-weight:700;color:var(--purple);margin-bottom:11px;text-transform:uppercase;letter-spacing:.04em;}
     .card h3.teal{color:#007F80;}
+    .card h3.green{color:#1A7A4A;}
     .w2{grid-column:span 2;}
     .wfull{grid-column:1/-1;}
 
-    /* pills */
     .pill{display:inline-block;padding:2px 9px;border-radius:20px;font-size:0.68rem;font-weight:700;}
     .pill.green{background:#E6F9D8;color:#3A7A00;}
     .pill.amber{background:#FFF4D9;color:#9A6500;}
     .pill.purple{background:#F0ECF6;color:var(--purple);}
     .pill.teal{background:#E0F6F7;color:#005E60;}
     .pill.red{background:#FCEAEA;color:#9A1A1A;}
-    .pill.blue{background:#E8F0FE;color:#1A4BA0;}
+    .pill.emerald{background:#D4F1E4;color:#1A7A4A;}
 
-    /* tables */
     table{width:100%;border-collapse:collapse;font-size:0.74rem;}
     th{background:#F0ECF6;color:var(--purple);font-size:0.63rem;text-transform:uppercase;letter-spacing:.06em;padding:7px 9px;text-align:left;}
     th.t{background:#E0F6F7;color:#007F80;}
+    th.g{background:#D4F1E4;color:#1A7A4A;}
     td{padding:7px 9px;border-bottom:1px solid var(--border);vertical-align:middle;}
     tr:hover td{background:#FAFAFA;}
     .rH{color:var(--red);font-weight:700;}
     .rM{color:var(--amber);font-weight:700;}
     .rL{color:var(--teal);font-weight:600;}
 
-    /* action list */
     .alist{list-style:none;display:flex;flex-direction:column;gap:7px;}
     .alist li{display:flex;align-items:flex-start;gap:9px;padding:9px 11px;background:#F9F8FC;border-radius:7px;border-left:3px solid var(--green);font-size:0.74rem;}
     .alist li .n{font-weight:800;color:var(--purple);min-width:18px;}
     .alist.teal li{border-left-color:var(--teal);}
+    .alist.emerald li{border-left-color:#27AE60;}
+
+    /* Priority matrix cards */
+    .priority-card{background:var(--card);border-radius:9px;border:1px solid var(--border);padding:16px 18px;border-top:4px solid var(--p-color,var(--purple));}
+    .priority-card .p-label{font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--p-color,var(--purple));margin-bottom:6px;}
+    .priority-card .p-count{font-size:1.8rem;font-weight:800;color:var(--p-color,var(--purple));line-height:1;}
+    .priority-card .p-desc{font-size:0.72rem;color:var(--muted);margin-top:4px;}
+    .priority-card ul{margin-top:8px;list-style:none;display:flex;flex-direction:column;gap:4px;}
+    .priority-card ul li{font-size:0.72rem;padding:4px 8px;background:#F9F9FC;border-radius:5px;border-left:2px solid var(--p-color,var(--purple));}
 
     @media(max-width:900px){
       main{padding:14px;}header{padding:14px;}
@@ -120,10 +119,10 @@
   <div class="meta"><strong>As of May 29, 2026</strong>Source: IC Support Tracker</div>
 </header>
 
-<!-- Entity tabs -->
 <nav class="entity-nav">
   <button class="entity-btn active" onclick="showEntity('digital',this)">TELUS Digital</button>
   <button class="entity-btn" onclick="showEntity('health',this)">TELUS Health</button>
+  <button class="entity-btn" onclick="showEntity('support',this)">🤝 IC Team Support Opportunities</button>
 </nav>
 
 
@@ -139,7 +138,6 @@
     <button class="sub-btn" onclick="showSub('digital','va',this)">Value Added &amp; Process Improvement</button>
   </nav>
 
-  <!-- ── Internal Audit ── -->
   <div id="digital-ia" class="sub-panel active">
     <main>
       <div class="section-title">Internal Audit — Highbond (16 Open Items)</div>
@@ -166,7 +164,6 @@
     </main>
   </div>
 
-  <!-- ── SOX ── -->
   <div id="digital-sox" class="sub-panel">
     <main>
       <div class="section-title">SOX Business Deficiencies (62 Total)</div>
@@ -177,7 +174,6 @@
         <div class="kpi" style="--accent:var(--amber)"><div class="val">4</div><div class="lbl">Medium-Risk IT Items</div><div class="sub">Certinia, Okta, GCP, Linux</div></div>
         <div class="kpi" style="--accent:#8B5AAF"><div class="val">40</div><div class="lbl">2025 Period Items</div><div class="sub">vs 22 in 2024</div></div>
       </div>
-
       <div class="section-title" style="margin-top:22px">SOX Business — Analysis</div>
       <div class="grid g3">
         <div class="card"><h3>By Audit Cycle</h3><canvas id="d-cycle" height="220"></canvas></div>
@@ -209,7 +205,6 @@
           </table>
         </div>
       </div>
-
       <div class="section-title" style="margin-top:22px">IT SOX Deficiencies (31 Total)</div>
       <div class="grid g3">
         <div class="card"><h3>By IT Process</h3><canvas id="d-itprocess" height="220"></canvas></div>
@@ -249,7 +244,6 @@
     </main>
   </div>
 
-  <!-- ── Value Added ── -->
   <div id="digital-va" class="sub-panel">
     <main>
       <div class="section-title">Value Added Findings &amp; Process Improvement Opportunities</div>
@@ -263,10 +257,10 @@
         <div class="card w2">
           <h3>Recommendations</h3>
           <ul class="alist" style="margin-top:4px">
-            <li><span class="n">1</span><span><strong>Executive Accountability Framework</strong> — Establish a cross-functional leadership team to transform all 2024 and 2025 audit findings into systematic process improvements and new standards. <em>Owner: Finance | Target: Feb 5, 2026</em></span></li>
+            <li><span class="n">1</span><span><strong>Executive Accountability Framework</strong> — Establish a cross-functional leadership team to transform all 2024 and 2025 audit findings into systematic process improvements. <em>Owner: Finance | Target: Feb 5, 2026</em></span></li>
             <li><span class="n">2</span><span><strong>AI-Driven Invoice Review</strong> — Utilize AI across all regions to automate invoice reviews for compliance with customer agreements and SLAs. <em>Owner: Finance | Target: Feb 5, 2026</em></span></li>
             <li><span class="n">3</span><span><strong>Global Deployment of Invoicing Tracker</strong> — Roll out to Europe and APAC regions to eliminate regional disparities in financial controls. <em>Owner: Finance | Target: Apr 24, 2026</em></span></li>
-            <li><span class="n">4</span><span><strong>Billing Best Practices Protocol</strong> — Review and identify within each region best practices related to billing assurance processes and establish communication standards. <em>Owner: Finance | Target: May 4, 2026</em></span></li>
+            <li><span class="n">4</span><span><strong>Billing Best Practices Protocol</strong> — Identify within each region best practices for billing assurance and establish communication standards. <em>Owner: Finance | Target: May 4, 2026</em></span></li>
             <li><span class="n">5</span><span><strong>WISE Workforce Planning Extrapolation</strong> — Extend WISE issues to 10–20 additional accounts to address the perceived systemic $656K revenue shortfall. <em>Owner: Finance | Target: May 12, 2026</em></span></li>
             <li><span class="n">6</span><span><strong>Best Practice Learnings Summary</strong> — Consolidate learnings from 2024 and 2025 Billing Assurance Audits for cross-regional distribution. <em>Owner: Finance</em></span></li>
           </ul>
@@ -274,7 +268,7 @@
       </div>
     </main>
   </div>
-</div><!-- /ep-digital -->
+</div>
 
 
 <!-- ═══════════════ TELUS HEALTH ═══════════════ -->
@@ -289,13 +283,12 @@
     <button class="sub-btn" onclick="showSub('health','va',this)">Value Added &amp; Process Improvement</button>
   </nav>
 
-  <!-- ── Internal Audit ── -->
   <div id="health-ia" class="sub-panel active">
     <main>
       <div class="section-title teal">Internal Audit — Highbond (6 Open Items)</div>
       <div class="kpi-grid">
         <div class="kpi" style="--accent:var(--teal)"><div class="val">6</div><div class="lbl">Open Highbond Items</div><div class="sub">TH &amp; TBS/TAC</div></div>
-        <div class="kpi" style="--accent:#66CC00"><div class="val">5</div><div class="lbl">In Progress</div><div class="sub">TBS / TAC / TH</div></div>
+        <div class="kpi" style="--accent:var(--green)"><div class="val">5</div><div class="lbl">In Progress</div><div class="sub">TBS / TAC / TH</div></div>
         <div class="kpi" style="--accent:var(--amber)"><div class="val">1</div><div class="lbl">Not Started</div><div class="sub">Imported TELUS Health</div></div>
         <div class="kpi" style="--accent:var(--red)"><div class="val">0</div><div class="lbl">Overdue Items</div><div class="sub">All within timeline</div></div>
       </div>
@@ -316,7 +309,6 @@
     </main>
   </div>
 
-  <!-- ── IHS Findings ── -->
   <div id="health-sox" class="sub-panel">
     <main>
       <div class="section-title teal">IHS Review — Open Findings (3 Open)</div>
@@ -346,7 +338,6 @@
     </main>
   </div>
 
-  <!-- ── Value Added ── -->
   <div id="health-va" class="sub-panel">
     <main>
       <div class="section-title teal">Value Added Findings &amp; Process Improvement Opportunities</div>
@@ -360,22 +351,121 @@
         <div class="card w2">
           <h3 class="teal">Improvement Opportunities</h3>
           <ul class="alist teal" style="margin-top:4px">
-            <li><span class="n">1</span><span><strong>Symphoni QA Review Process</strong> <span class="pill red" style="margin-left:4px">High</span> — Formalize and consistently apply QA review controls for Symphoni new businesses, updates, and terminations to prevent Q1 2026 recurrence. <em>Finding: REV-IHS-02-03 | Date: May 4, 2026</em></span></li>
-            <li><span class="n">2</span><span><strong>AR Reconciliation Threshold Policy</strong> <span class="pill teal" style="margin-left:4px">Low</span> — Document and formalize variance explanation thresholds for the Monthly Trade AR Reconciliation Review. <em>Finding: AR-04-05 | Date: Apr 24, 2026</em></span></li>
-            <li><span class="n">3</span><span><strong>Symphoni–Workday Reconciliation Documentation</strong> <span class="pill teal" style="margin-left:4px">Low</span> — Implement formal documentation standards for monthly line count reconciliation between Symphoni and Workday. <em>Finding: REV-IHS-04-01 | Date: May 12, 2026</em></span></li>
+            <li><span class="n">1</span><span><strong>Symphoni QA Review Process</strong> <span class="pill red" style="margin-left:4px">High</span> — Formalize and consistently apply QA review controls for Symphoni new businesses, updates, and terminations. <em>Finding: REV-IHS-02-03 | May 4, 2026</em></span></li>
+            <li><span class="n">2</span><span><strong>AR Reconciliation Threshold Policy</strong> <span class="pill teal" style="margin-left:4px">Low</span> — Document and formalize variance explanation thresholds for the Monthly Trade AR Reconciliation Review. <em>Finding: AR-04-05 | Apr 24, 2026</em></span></li>
+            <li><span class="n">3</span><span><strong>Symphoni–Workday Reconciliation Documentation</strong> <span class="pill teal" style="margin-left:4px">Low</span> — Implement formal documentation standards for monthly line count reconciliation between Symphoni and Workday. <em>Finding: REV-IHS-04-01 | May 12, 2026</em></span></li>
           </ul>
         </div>
       </div>
     </main>
   </div>
-</div><!-- /ep-health -->
+</div>
+
+
+<!-- ═══════════════ IC TEAM SUPPORT OPPORTUNITIES ═══════════════ -->
+<div id="ep-support" class="entity-panel">
+  <div class="sec-banner support">
+    <div><h2>IC Team Support Opportunities</h2><p>Where the Internal Controls team can add value across TELUS Digital &amp; TELUS Health</p></div>
+    <div class="badge">9 Priority Areas Identified</div>
+  </div>
+
+  <main>
+
+    <div class="section-title green">At a Glance — Total Open Items Requiring IC Support</div>
+    <div class="kpi-grid">
+      <div class="kpi" style="--accent:#1A7A4A"><div class="val">37</div><div class="lbl">Control Design Gaps</div><div class="sub">SOX Business — Design deficiencies</div></div>
+      <div class="kpi" style="--accent:var(--purple)"><div class="val">23</div><div class="lbl">Operating Effectiveness Gaps</div><div class="sub">SOX Business — OE deficiencies</div></div>
+      <div class="kpi" style="--accent:var(--teal)"><div class="val">31</div><div class="lbl">IT Control Gaps</div><div class="sub">Access Mgmt, Change Mgmt, Computer Ops</div></div>
+      <div class="kpi" style="--accent:var(--amber)"><div class="val">22</div><div class="lbl">IA Items to Track</div><div class="sub">Highbond in progress across both entities</div></div>
+      <div class="kpi" style="--accent:var(--red)"><div class="val">3</div><div class="lbl">High-Priority Items</div><div class="sub">Workday ×2, Symphoni QA ×1</div></div>
+      <div class="kpi" style="--accent:#8B5AAF"><div class="val">9</div><div class="lbl">Value-Added Opportunities</div><div class="sub">6 Digital + 3 Health recommendations</div></div>
+    </div>
+
+    <div class="section-title green" style="margin-top:28px">Priority Support Areas</div>
+    <div class="grid g3">
+      <div class="priority-card" style="--p-color:var(--red)">
+        <div class="p-label">Immediate — High Risk</div>
+        <div class="p-count">3</div>
+        <div class="p-desc">High-risk open items requiring urgent IC attention</div>
+        <ul>
+          <li><strong>Workday AM.04.04</strong> — Annual user access review for Workday approvers not completed (TELUS Digital)</li>
+          <li><strong>Workday CM.04.01</strong> — Security log monitoring gap; admin activity not tracked (TELUS Digital)</li>
+          <li><strong>REV-IHS-02-03</strong> — Symphoni QA review not performed consistently in Q1 2026 (TELUS Health)</li>
+        </ul>
+      </div>
+      <div class="priority-card" style="--p-color:var(--amber)">
+        <div class="p-label">Near-Term — Medium Risk</div>
+        <div class="p-count">4</div>
+        <div class="p-desc">Medium-risk IT SOX gaps where IC can support remediation</div>
+        <ul>
+          <li><strong>Certinia (WillowTree)</strong> — Elevated access and change management gaps (2024 &amp; 2025)</li>
+          <li><strong>Okta (WillowTree)</strong> — Terminated user accounts not deprovisioned timely</li>
+          <li><strong>Google Cloud Platform</strong> — Infrastructure change approval process gaps</li>
+          <li><strong>GCP Service Account Keys</strong> — Transition to Workload Identity Federation needed</li>
+        </ul>
+      </div>
+      <div class="priority-card" style="--p-color:#1A7A4A">
+        <div class="p-label">Ongoing — Remediation Tracking</div>
+        <div class="p-count">22</div>
+        <div class="p-desc">Open Highbond IA items IC can help monitor and validate</div>
+        <ul>
+          <li><strong>CIO Portfolio</strong> — 15 in-progress items; IC can provide remediation testing support</li>
+          <li><strong>Corporate Affairs &amp; Finance</strong> — 1 in-progress item</li>
+          <li><strong>TBS / TAC / TH</strong> — 5 Highbond items in progress</li>
+          <li><strong>TELUS Health (Imported)</strong> — 1 not-started item to kick off</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-title green" style="margin-top:28px">Support by Activity Type</div>
+    <div class="grid g2">
+      <div class="card"><h3 class="green">Volume of Open Items by Support Type</h3><canvas id="s-types" height="260"></canvas></div>
+      <div class="card"><h3 class="green">By Entity</h3><canvas id="s-entity" height="260"></canvas></div>
+    </div>
+
+    <div class="section-title green" style="margin-top:28px">Full Opportunity Register</div>
+    <div class="card">
+      <h3 class="green">Where IC Can Engage</h3>
+      <table style="margin-top:8px">
+        <thead>
+          <tr>
+            <th class="g">Area</th>
+            <th class="g">Entity</th>
+            <th class="g">Type of Support</th>
+            <th class="g">Risk</th>
+            <th class="g">Open Items</th>
+            <th class="g">Suggested IC Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Workday Access Review</strong> (AM.04.04)</td><td>TELUS Digital</td><td><span class="pill purple">IT SOX</span></td><td class="rH">High</td><td>1</td><td>Facilitate annual Workday approver access review; validate completeness</td></tr>
+          <tr><td><strong>Workday Log Monitoring</strong> (CM.04.01)</td><td>TELUS Digital</td><td><span class="pill purple">IT SOX</span></td><td class="rH">High</td><td>1</td><td>Work with IT to establish automated log review process and evidence retention</td></tr>
+          <tr><td><strong>Symphoni QA Review</strong></td><td>TELUS Health</td><td><span class="pill teal">IHS Review</span></td><td class="rH">High</td><td>1</td><td>Design and document QA control procedure; support Q2 2026 remediation testing</td></tr>
+          <tr><td><strong>SOX Design Deficiencies</strong></td><td>TELUS Digital</td><td><span class="pill purple">SOX Business</span></td><td class="rM">Mixed</td><td>37</td><td>Partner with control owners to redesign controls; prioritise Revenue &amp; AR (23 items)</td></tr>
+          <tr><td><strong>SOX Operational Effectiveness</strong></td><td>TELUS Digital</td><td><span class="pill purple">SOX Business</span></td><td class="rM">Mixed</td><td>23</td><td>Coach control owners on consistent execution; increase monitoring frequency</td></tr>
+          <tr><td><strong>IT Access Management</strong></td><td>TELUS Digital</td><td><span class="pill purple">IT SOX</span></td><td class="rM">Mixed</td><td>16</td><td>Support access review cycles; validate deprovisioning procedures across regions</td></tr>
+          <tr><td><strong>IT Change Management</strong></td><td>TELUS Digital</td><td><span class="pill purple">IT SOX</span></td><td class="rL">Low–Med</td><td>12</td><td>Review change approval workflows; assist in documenting UAT evidence standards</td></tr>
+          <tr><td><strong>Highbond IA Remediation</strong></td><td>TELUS Digital</td><td><span class="pill emerald">Internal Audit</span></td><td class="rL">Low</td><td>16</td><td>Track remediation progress for CIO (15) and Corporate (1) items; validate closure evidence</td></tr>
+          <tr><td><strong>Highbond IA Remediation</strong></td><td>TELUS Health</td><td><span class="pill emerald">Internal Audit</span></td><td class="rL">Low</td><td>6</td><td>Monitor TBS/TAC/TH items; initiate the 1 not-started imported finding</td></tr>
+          <tr><td><strong>AR Reconciliation Threshold</strong></td><td>TELUS Health</td><td><span class="pill teal">IHS Review</span></td><td class="rL">Low</td><td>1</td><td>Assist Finance in documenting formal variance thresholds for AR reconciliation</td></tr>
+          <tr><td><strong>Symphoni–Workday Reconciliation</strong></td><td>TELUS Health</td><td><span class="pill teal">IHS Review</span></td><td class="rL">Low</td><td>1</td><td>Define documentation standard for monthly line-count reconciliation</td></tr>
+          <tr><td><strong>Executive Accountability Framework</strong></td><td>TELUS Digital</td><td><span class="pill amber">Value Added</span></td><td>—</td><td>1</td><td>IC team can co-lead cross-functional framework; track 2024–2025 finding conversion to process improvements</td></tr>
+          <tr><td><strong>AI Invoice Review &amp; Invoicing Tracker</strong></td><td>TELUS Digital</td><td><span class="pill amber">Value Added</span></td><td>—</td><td>2</td><td>Provide internal controls perspective on automated review design and global rollout governance</td></tr>
+          <tr><td><strong>Billing Best Practices &amp; WISE Extrapolation</strong></td><td>TELUS Digital</td><td><span class="pill amber">Value Added</span></td><td>—</td><td>2</td><td>IC team to review findings from 10–20 WISE accounts; support $656K shortfall root cause analysis</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+</div>
+
 
 <footer style="text-align:center;padding:18px;font-size:0.68rem;color:var(--muted);border-top:1px solid var(--border);margin-top:32px;">
   IC Support &mdash; Confidential &mdash; Open Items Only &mdash; Generated May 29, 2026 &nbsp;|&nbsp; Source: IC Support Tracker (Google Sheets)
 </footer>
 
 <script>
-const P='#4B286D',G='#66CC00',T='#00B0B2',A='#F5A623',R='#C12335',LP='#8B5AAF';
+const P='#4B286D',G='#66CC00',T='#00B0B2',A='#F5A623',R='#C12335',LP='#8B5AAF',EM='#27AE60';
 const d={plugins:{legend:{labels:{font:{size:11},boxWidth:12}}},responsive:true,maintainAspectRatio:true};
 
 function showEntity(name,btn){
@@ -391,10 +481,9 @@ function showSub(entity,name,btn){
   btn.classList.add('active');
 }
 
-// ── TELUS DIGITAL ──
+// TELUS Digital charts
 new Chart(document.getElementById('d-hb-bu'),{type:'bar',data:{labels:['CIO','Corporate Affairs & Finance'],datasets:[{data:[15,1],backgroundColor:P,borderRadius:4}]},options:{...d,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:'#eee'}}}}});
 new Chart(document.getElementById('d-hb-status'),{type:'doughnut',data:{labels:['In Progress'],datasets:[{data:[16],backgroundColor:[T],borderWidth:2}]},options:{...d,cutout:'60%',plugins:{legend:{position:'bottom'}}}});
-
 new Chart(document.getElementById('d-cycle'),{type:'bar',data:{labels:['Revenue & AR','Payroll & HR','Financial Reporting','P2P','Capital Assets','Treasury','Bus. Acq.'],datasets:[{data:[23,10,9,7,6,5,2],backgroundColor:P,borderRadius:4}]},options:{...d,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:'#eee'}}}}});
 new Chart(document.getElementById('d-type'),{type:'doughnut',data:{labels:['Design','Operational Effectiveness (OE)'],datasets:[{data:[37,23],backgroundColor:[P,T],borderWidth:2}]},options:{...d,cutout:'65%',plugins:{legend:{position:'bottom'}}}});
 new Chart(document.getElementById('d-auditor'),{type:'bar',data:{labels:['Ivan','David','Yanin','Bharat','Freddo','Other'],datasets:[{data:[17,16,14,11,2,2],backgroundColor:[P,LP,T,G,A,'#ccc'],borderRadius:4}]},options:{...d,plugins:{legend:{display:false}},scales:{y:{grid:{color:'#eee'}}}}});
@@ -406,12 +495,35 @@ new Chart(document.getElementById('d-itrisk'),{type:'bar',data:{labels:['High','
 new Chart(document.getElementById('d-itperiod'),{type:'bar',data:{labels:['2024','2025'],datasets:[{data:[7,24],backgroundColor:[A,P],borderRadius:4,barThickness:40}]},options:{...d,plugins:{legend:{display:false}},scales:{y:{grid:{color:'#eee'}}}}});
 new Chart(document.getElementById('d-va-dates'),{type:'bar',data:{labels:['Feb 5, 2026','Apr 24, 2026','May 4, 2026','May 12, 2026','TBD'],datasets:[{data:[2,1,1,1,1],backgroundColor:[R,A,A,T,LP],borderRadius:4}]},options:{...d,plugins:{legend:{display:false}},scales:{y:{grid:{color:'#eee'},ticks:{stepSize:1}}}}});
 
-// ── TELUS HEALTH ──
+// TELUS Health charts
 new Chart(document.getElementById('h-hb-bu'),{type:'bar',data:{labels:['TBS / TAC / TH','TELUS Health (Imported)'],datasets:[{data:[5,1],backgroundColor:T,borderRadius:4}]},options:{...d,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:'#eee'},ticks:{stepSize:1}}}}});
 new Chart(document.getElementById('h-hb-status'),{type:'doughnut',data:{labels:['In Progress','Not Started'],datasets:[{data:[5,1],backgroundColor:[T,'#CCCCDD'],borderWidth:2}]},options:{...d,cutout:'60%',plugins:{legend:{position:'bottom'}}}});
 new Chart(document.getElementById('h-risk'),{type:'doughnut',data:{labels:['High','Low'],datasets:[{data:[1,2],backgroundColor:[R,T],borderWidth:2}]},options:{...d,cutout:'60%',plugins:{legend:{position:'bottom'}}}});
 new Chart(document.getElementById('h-process'),{type:'bar',data:{labels:['Order-to-Cash / Revenue','Record-to-Report / FR'],datasets:[{data:[2,1],backgroundColor:[T,'#007F80'],borderRadius:4}]},options:{...d,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:'#eee'},ticks:{stepSize:1}}}}});
 new Chart(document.getElementById('h-va-risk'),{type:'bar',data:{labels:['High','Low'],datasets:[{data:[1,2],backgroundColor:[R,T],borderRadius:4,barThickness:50}]},options:{...d,plugins:{legend:{display:false}},scales:{y:{grid:{color:'#eee'},ticks:{stepSize:1}}}}});
+
+// IC Support charts
+new Chart(document.getElementById('s-types'),{
+  type:'bar',
+  data:{
+    labels:['Control Design (SOX)','Operating Effectiveness (SOX)','IT Access Management','IT Change Management','IA Remediation Tracking','IHS Review Findings','Value-Added Recommendations'],
+    datasets:[{
+      label:'Open Items',
+      data:[37,23,16,12,22,3,9],
+      backgroundColor:[P,LP,T,'#007F80',EM,R,A],
+      borderRadius:4
+    }]
+  },
+  options:{...d,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:'#eee'}}}}
+});
+new Chart(document.getElementById('s-entity'),{
+  type:'doughnut',
+  data:{
+    labels:['TELUS Digital','TELUS Health'],
+    datasets:[{data:[109,13],backgroundColor:[P,T],borderWidth:2}]
+  },
+  options:{...d,cutout:'55%',plugins:{legend:{position:'bottom'}}}
+});
 </script>
 </body>
 </html>
