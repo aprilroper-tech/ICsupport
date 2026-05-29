@@ -18,127 +18,133 @@
       --text:         #1A1A2E;
       --muted:        #6B6B80;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
+    /* ── Top header ── */
     header {
       background: var(--telus-purple);
       color: #fff;
-      padding: 24px 40px;
+      padding: 20px 40px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
     header .brand { display: flex; align-items: center; gap: 14px; }
-    header .logo {
-      width: 44px; height: 44px;
-      background: var(--telus-green);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; font-weight: 900; color: var(--telus-purple);
+    header .logo { width: 40px; height: 40px; background: var(--telus-green); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; color: var(--telus-purple); }
+    header h1 { font-size: 1.25rem; font-weight: 700; }
+    header p  { font-size: 0.78rem; opacity: 0.75; margin-top: 2px; }
+    header .meta { text-align: right; font-size: 0.75rem; opacity: 0.8; }
+    header .meta strong { display: block; font-size: 0.85rem; opacity: 1; }
+
+    /* ── Nav tabs ── */
+    .tab-nav {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 0;
+      padding: 0 40px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
     }
-    header h1 { font-size: 1.35rem; font-weight: 700; letter-spacing: 0.01em; }
-    header p  { font-size: 0.8rem; opacity: 0.75; margin-top: 2px; }
-    header .meta { text-align: right; font-size: 0.78rem; opacity: 0.8; }
-    header .meta strong { display: block; font-size: 0.9rem; opacity: 1; }
+    .tab-btn {
+      padding: 14px 28px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: var(--muted);
+      border-bottom: 3px solid transparent;
+      transition: all 0.15s;
+      letter-spacing: 0.02em;
+    }
+    .tab-btn:hover { color: var(--telus-purple); }
+    .tab-btn.active { color: var(--telus-purple); border-bottom-color: var(--telus-green); }
 
-    main { max-width: 1400px; margin: 0 auto; padding: 32px 40px; }
+    /* ── Section panels ── */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
 
-    .section-title {
-      font-size: 0.7rem;
+    /* ── Section banner ── */
+    .section-banner {
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0;
+    }
+    .section-banner.digital { background: linear-gradient(135deg, #4B286D 0%, #6B3A8F 100%); color: #fff; }
+    .section-banner.health  { background: linear-gradient(135deg, #00B0B2 0%, #007F80 100%); color: #fff; }
+    .section-banner h2 { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.02em; }
+    .section-banner p  { font-size: 0.78rem; opacity: 0.85; margin-top: 3px; }
+    .section-banner .tag { font-size: 0.7rem; font-weight: 700; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; }
+
+    main { max-width: 1400px; margin: 0 auto; padding: 28px 40px; }
+
+    .sub-title {
+      font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--telus-purple);
-      margin: 32px 0 14px;
+      margin: 28px 0 12px;
       padding-bottom: 6px;
       border-bottom: 2px solid var(--telus-green);
     }
+    .sub-title.teal { border-bottom-color: var(--telus-teal); color: #007F80; }
 
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 14px;
-      margin-bottom: 8px;
-    }
-    .kpi {
-      background: var(--card);
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      padding: 18px 20px;
-      position: relative;
-      overflow: hidden;
-    }
-    .kpi::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      background: var(--accent, var(--telus-purple));
-    }
-    .kpi .value {
-      font-size: 2.4rem;
-      font-weight: 800;
-      color: var(--accent, var(--telus-purple));
-      line-height: 1;
-    }
-    .kpi .label  { font-size: 0.72rem; color: var(--muted); margin-top: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
-    .kpi .sub    { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+    /* ── KPIs ── */
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 12px; margin-bottom: 4px; }
+    .kpi { background: var(--card); border-radius: 10px; border: 1px solid var(--border); padding: 16px 18px; position: relative; overflow: hidden; }
+    .kpi::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--accent, var(--telus-purple)); }
+    .kpi .value { font-size: 2.2rem; font-weight: 800; color: var(--accent, var(--telus-purple)); line-height: 1; }
+    .kpi .label { font-size: 0.68rem; color: var(--muted); margin-top: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .kpi .sub   { font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
 
-    .chart-grid { display: grid; gap: 14px; }
+    /* ── Charts ── */
+    .chart-grid { display: grid; gap: 12px; }
     .chart-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
     .chart-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
     .chart-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
-
-    .card {
-      background: var(--card);
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      padding: 20px 22px;
-    }
-    .card h3 { font-size: 0.82rem; font-weight: 700; color: var(--telus-purple); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .card { background: var(--card); border-radius: 10px; border: 1px solid var(--border); padding: 18px 20px; }
+    .card h3 { font-size: 0.78rem; font-weight: 700; color: var(--telus-purple); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .card h3.teal { color: #007F80; }
     .card.wide { grid-column: span 2; }
+    .card.full { grid-column: 1 / -1; }
 
-    .pill { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; }
+    /* ── Pills ── */
+    .pill { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; }
     .pill.green  { background: #E6F9D8; color: #3A7A00; }
     .pill.amber  { background: #FFF4D9; color: #9A6500; }
-    .pill.red    { background: #FCEAEA; color: #9A1A1A; }
     .pill.purple { background: #F0ECF6; color: var(--telus-purple); }
     .pill.teal   { background: #E0F6F7; color: #005E60; }
+    .pill.red    { background: #FCEAEA; color: #9A1A1A; }
 
-    table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
-    th { background: #F0ECF6; color: var(--telus-purple); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; padding: 8px 10px; text-align: left; }
-    td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    /* ── Tables ── */
+    table { width: 100%; border-collapse: collapse; font-size: 0.76rem; }
+    th { background: #F0ECF6; color: var(--telus-purple); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em; padding: 7px 9px; text-align: left; }
+    th.teal-header { background: #E0F6F7; color: #007F80; }
+    td { padding: 7px 9px; border-bottom: 1px solid var(--border); vertical-align: middle; }
     tr:hover td { background: #FAFAFA; }
     .risk-H { color: var(--telus-red); font-weight: 700; }
     .risk-M { color: var(--telus-amber); font-weight: 700; }
     .risk-L { color: var(--telus-teal); font-weight: 600; }
 
-    .action-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .action-list li {
-      display: flex; align-items: flex-start; gap: 10px;
-      padding: 10px 12px;
-      background: #F9F8FC;
-      border-radius: 7px;
-      border-left: 3px solid var(--telus-green);
-      font-size: 0.78rem;
-    }
+    /* ── Action list ── */
+    .action-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .action-list li { display: flex; align-items: flex-start; gap: 10px; padding: 9px 12px; background: #F9F8FC; border-radius: 7px; border-left: 3px solid var(--telus-green); font-size: 0.76rem; }
     .action-list li .num { font-weight: 800; color: var(--telus-purple); min-width: 18px; }
 
-    .findings-card { grid-column: 1 / -1; }
-
     @media (max-width: 900px) {
-      main { padding: 20px; }
+      main { padding: 16px; }
+      .section-banner { padding: 14px 16px; }
+      .tab-nav { padding: 0 16px; }
       .chart-grid.cols-2, .chart-grid.cols-3, .chart-grid.cols-4 { grid-template-columns: 1fr; }
-      .card.wide { grid-column: span 1; }
-      header { flex-direction: column; gap: 10px; text-align: center; }
+      .card.wide, .card.full { grid-column: span 1; }
+      header { flex-direction: column; gap: 8px; text-align: center; padding: 16px; }
     }
   </style>
 </head>
@@ -149,131 +155,151 @@
     <div class="logo">IC</div>
     <div>
       <h1>IC Support — Executive Audit Dashboard</h1>
-      <p>SOX Business · IT SOX · Internal Audit · TELUS Health Findings</p>
+      <p>Internal Controls &amp; SOX Deficiency Tracker · Audit Periods 2024 &amp; 2025</p>
     </div>
   </div>
   <div class="meta">
     <strong>As of May 29, 2026</strong>
-    Audit Periods: 2024 &amp; 2025
+    Source: IC Support Tracker
   </div>
 </header>
 
-<main>
+<!-- ── Tab navigation ── -->
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('digital', this)">TELUS Digital</button>
+  <button class="tab-btn" onclick="showTab('health', this)">TELUS Health</button>
+</nav>
 
-  <div class="section-title">Overview</div>
-  <div class="kpi-grid">
-    <div class="kpi" style="--accent:#4B286D">
-      <div class="value">62</div>
-      <div class="label">SOX Business Deficiencies</div>
-      <div class="sub">Design: 37 &nbsp;|&nbsp; OE: 23</div>
+<!-- ══════════════════════════════════════════
+     TELUS DIGITAL
+══════════════════════════════════════════ -->
+<div id="tab-digital" class="tab-panel active">
+
+  <div class="section-banner digital">
+    <div>
+      <h2>TELUS Digital</h2>
+      <p>SOX Business · IT SOX · Highbond Internal Audit · Strategic Actions</p>
     </div>
-    <div class="kpi" style="--accent:#00B0B2">
-      <div class="value">31</div>
-      <div class="label">IT SOX Deficiencies</div>
-      <div class="sub">Access Mgmt: 16 &nbsp;|&nbsp; Change: 12</div>
-    </div>
-    <div class="kpi" style="--accent:#66CC00">
-      <div class="value">17</div>
-      <div class="label">Highbond IA Items</div>
-      <div class="sub">In Progress: 16 &nbsp;|&nbsp; Not Started: 1</div>
-    </div>
-    <div class="kpi" style="--accent:#F5A623">
-      <div class="value">6</div>
-      <div class="label">TELUS Health Findings</div>
-      <div class="sub">High: 1 &nbsp;|&nbsp; Low: 5</div>
-    </div>
-    <div class="kpi" style="--accent:#4B286D">
-      <div class="value">5</div>
-      <div class="label">TELUS Digital Open Items</div>
-      <div class="sub">SOX IT: 3 &nbsp;|&nbsp; SOX Biz: 1 &nbsp;|&nbsp; Value Add: 1</div>
-    </div>
-    <div class="kpi" style="--accent:#C12335">
-      <div class="value">1</div>
-      <div class="label">High-Risk IT Item</div>
-      <div class="sub">Workday AM.04.04 — Access Review</div>
-    </div>
+    <div class="tag">5 Open Items</div>
   </div>
 
-  <div class="section-title">SOX Business Deficiencies (62 Total)</div>
-  <div class="chart-grid cols-3">
-    <div class="card"><h3>By Audit Cycle</h3><canvas id="cycleChart" height="220"></canvas></div>
-    <div class="card"><h3>Deficiency Type</h3><canvas id="typeChart" height="220"></canvas></div>
-    <div class="card"><h3>By Auditor</h3><canvas id="auditorChart" height="220"></canvas></div>
-    <div class="card"><h3>2024 vs 2025</h3><canvas id="periodChart" height="200"></canvas></div>
-    <div class="card"><h3>Status</h3><canvas id="statusChart" height="200"></canvas></div>
-    <div class="card"><h3>By Entity / Location</h3><canvas id="locationChart" height="200"></canvas></div>
-  </div>
+  <main>
 
-  <div class="section-title">IT SOX Deficiencies (31 Total)</div>
-  <div class="chart-grid cols-3">
-    <div class="card"><h3>By IT Process</h3><canvas id="itProcessChart" height="220"></canvas></div>
-    <div class="card"><h3>By Risk Level</h3><canvas id="itRiskChart" height="220"></canvas></div>
-    <div class="card"><h3>2024 vs 2025</h3><canvas id="itPeriodChart" height="220"></canvas></div>
-    <div class="card findings-card">
-      <h3>IT SOX Deficiencies Detail</h3>
-      <table>
-        <thead><tr><th>Application / System</th><th>Period</th><th>IT Process</th><th>Control</th><th>Risk</th><th>Entity</th></tr></thead>
-        <tbody>
-          <tr><td>Payroll – Evolution (GT,SV) DB</td><td>2024</td><td>IT-Access Management</td><td>AM.03.01 – Local Auth Config</td><td class="risk-L">L</td><td>TELUS Digital GT/SV</td></tr>
-          <tr><td>Linux OS (DE)</td><td>2024</td><td>IT-Access Management</td><td>AM.03.01 – Local Auth Config</td><td class="risk-L">L</td><td>TELUS Digital DE</td></tr>
-          <tr><td>Certinia (WillowTree)</td><td>2024</td><td>IT-Change Management</td><td>CM.01.02 – App &amp; DB Changes</td><td class="risk-M">M</td><td>WillowTree</td></tr>
-          <tr><td>QlikView (DE)</td><td>2024</td><td>IT-Change Management</td><td>CM.01.02 – App &amp; DB Changes</td><td class="risk-L">L</td><td>TELUS Digital DE</td></tr>
-          <tr><td>Time Attendance Mgmt (TAM) (DE)</td><td>2024</td><td>IT-Change Management</td><td>CM.01.02 / CM.03.01</td><td class="risk-L">L</td><td>TELUS Digital DE</td></tr>
-          <tr><td>Workday</td><td>2024</td><td>IT-Change Management</td><td>CM.04.01 – Logs Review</td><td class="risk-H">H</td><td>TELUS Digital</td></tr>
-          <tr><td>Diligent One Platform</td><td>2025</td><td>IT-Access Management</td><td>AM.03.01 – Local Auth Config</td><td class="risk-L">L</td><td>TELUS Digital</td></tr>
-          <tr><td>Global Time Tracker (GTT) DB</td><td>2025</td><td>IT-Access Management</td><td>AM.03.06 – Privileged Credentials</td><td class="risk-L">L</td><td>TELUS Digital</td></tr>
-          <tr><td>Certinia (WillowTree)</td><td>2025</td><td>IT-Access Management</td><td>AM.04.02 – Elevated Access</td><td class="risk-M">M</td><td>WillowTree</td></tr>
-          <tr><td>Google Workspace</td><td>2025</td><td>IT-Access Management</td><td>AM.03.01 – Local Auth Config</td><td class="risk-L">L</td><td>TELUS Digital</td></tr>
-          <tr><td>Workday</td><td>2025</td><td>IT-Access Management</td><td>AM.04.04 – WD Approvers Annual Review</td><td class="risk-H">H</td><td>TELUS Digital</td></tr>
-          <tr><td>Okta (WillowTree)</td><td>2025</td><td>IT-Access Management</td><td>AM.02.01 – Normal Accounts</td><td class="risk-M">M</td><td>WillowTree</td></tr>
-          <tr><td>Google Cloud Platform (GCP)</td><td>2025</td><td>IT-Change Management</td><td>CM.01.01 – Infra Changes</td><td class="risk-M">M</td><td>TELUS Digital</td></tr>
-          <tr><td>QlikView (DE)</td><td>2025</td><td>IT-Access Management / Change Mgmt</td><td>AM.04.01 / CM.01.02 / CM.03.01</td><td class="risk-L">L</td><td>TELUS Digital DE</td></tr>
-          <tr><td>DataCentre (DE)</td><td>2025</td><td>IT-Computer Operations</td><td>CO.01.01 – Data Centre Security</td><td class="risk-L">L</td><td>TELUS Digital DE</td></tr>
-          <tr><td>Network (DE)</td><td>2025</td><td>IT-Computer Operations</td><td>CO.08.01 / CO.08.02 – Firewall / IDS</td><td class="risk-L">L</td><td>TELUS Digital DE</td></tr>
-          <tr><td>Active Directory (DE)</td><td>2025</td><td>IT-Change Management</td><td>CM.02.03 – Patches</td><td class="risk-L">L</td><td>TELUS Digital DE</td></tr>
-          <tr><td>Payroll – Delta (TR)</td><td>2025</td><td>IT-Access Mgmt / Change Mgmt</td><td>AM.04.02 / AM.04.03 / AM.03.01 / CM.02.03</td><td class="risk-L">L</td><td>TELUS Digital Turkiye</td></tr>
-          <tr><td>Luca (TR)</td><td>2025</td><td>IT-Access Management</td><td>AM.04.03 / AM.02.02 – Privileged Access</td><td class="risk-L">L</td><td>TELUS Digital Turkiye</td></tr>
-          <tr><td>Payroll – Charisma (RO)</td><td>2025</td><td>IT-Access Management</td><td>AM.04.02 – Elevated Access</td><td class="risk-L">L</td><td>TELUS Digital RO</td></tr>
-          <tr><td>MariaDB (DE)</td><td>2025</td><td>IT-Change Management</td><td>CM.02.02 – UAT Approval</td><td class="risk-L">L</td><td>TELUS Digital DE</td></tr>
-          <tr><td>TAM (DE)</td><td>2025</td><td>IT-Access Mgmt / Change Mgmt</td><td>AM.01.02 / CM.04.01</td><td class="risk-L">L</td><td>TELUS Digital DE</td></tr>
-        </tbody>
-      </table>
+    <!-- KPIs -->
+    <div class="sub-title">Overview</div>
+    <div class="kpi-grid">
+      <div class="kpi" style="--accent:#4B286D">
+        <div class="value">62</div>
+        <div class="label">SOX Business Deficiencies</div>
+        <div class="sub">Design: 37 &nbsp;|&nbsp; OE: 23</div>
+      </div>
+      <div class="kpi" style="--accent:#00B0B2">
+        <div class="value">31</div>
+        <div class="label">IT SOX Deficiencies</div>
+        <div class="sub">Access Mgmt: 16 &nbsp;|&nbsp; Change: 12</div>
+      </div>
+      <div class="kpi" style="--accent:#66CC00">
+        <div class="value">16</div>
+        <div class="label">Highbond IA Items</div>
+        <div class="sub">CIO: 15 &nbsp;|&nbsp; Corporate: 1</div>
+      </div>
+      <div class="kpi" style="--accent:#4B286D">
+        <div class="value">5</div>
+        <div class="label">Open Items</div>
+        <div class="sub">SOX IT: 3 &nbsp;|&nbsp; SOX Biz: 1 &nbsp;|&nbsp; Value Add: 1</div>
+      </div>
+      <div class="kpi" style="--accent:#C12335">
+        <div class="value">1</div>
+        <div class="label">High-Risk IT Item</div>
+        <div class="sub">Workday AM.04.04 — Access Review</div>
+      </div>
     </div>
-  </div>
 
-  <div class="section-title">TELUS Health Findings (6 Total — IHS Review)</div>
-  <div class="chart-grid cols-4">
-    <div class="card"><h3>By Risk Level</h3><canvas id="thRiskChart" height="200"></canvas></div>
-    <div class="card"><h3>Remediation Status</h3><canvas id="thStatusChart" height="200"></canvas></div>
-    <div class="card wide">
-      <h3>Finding Details</h3>
-      <table>
-        <thead><tr><th>Finding ID</th><th>Date</th><th>Process</th><th>Risk</th><th>Sub-Process</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td>AR-04-05</td><td>Apr 24, 2026</td><td>Record-to-Report / Financial Reporting</td><td class="risk-L">Low</td><td>Monthly Trade AR Reconciliation Review</td><td><span class="pill purple">Not Started</span></td></tr>
-          <tr><td>REV-IHS-02-03</td><td>May 4, 2026</td><td>Order-to-Cash / Revenue</td><td class="risk-H">High</td><td>QA Review of Symphoni New Businesses</td><td><span class="pill purple">Not Started</span></td></tr>
-          <tr><td>REV-IHS-M1</td><td>Feb 5, 2026</td><td>Order-to-Cash / Revenue</td><td class="risk-L">Low</td><td>Review of IHS Invoices Out of Workday</td><td><span class="pill green">Completed</span></td></tr>
-          <tr><td>REV-IHS-M2</td><td>Feb 5, 2026</td><td>Order-to-Cash / Revenue</td><td class="risk-L">Low</td><td>Review of IHS Credits and Cancellations</td><td><span class="pill green">Completed</span></td></tr>
-          <tr><td>PEFR-02-06</td><td>Feb 9, 2026</td><td>Record-to-Report / Financial Reporting</td><td class="risk-L">Low</td><td>VP Finance Approval of Manual JEs After Cutoff</td><td><span class="pill green">Completed</span></td></tr>
-          <tr><td>REV-IHS-04-01</td><td>May 12, 2026</td><td>Order-to-Cash / Revenue</td><td class="risk-L">Low</td><td>Monthly Reconciliation: Symphoni vs Workday</td><td><span class="pill purple">Not Started</span></td></tr>
-        </tbody>
-      </table>
+    <!-- SOX Business -->
+    <div class="sub-title">SOX Business Deficiencies (62 Total)</div>
+    <div class="chart-grid cols-3">
+      <div class="card"><h3>By Audit Cycle</h3><canvas id="cycleChart" height="220"></canvas></div>
+      <div class="card"><h3>Deficiency Type</h3><canvas id="typeChart" height="220"></canvas></div>
+      <div class="card"><h3>By Auditor</h3><canvas id="auditorChart" height="220"></canvas></div>
+      <div class="card"><h3>2024 vs 2025</h3><canvas id="periodChart" height="200"></canvas></div>
+      <div class="card"><h3>Status</h3><canvas id="statusChart" height="200"></canvas></div>
+      <div class="card"><h3>By Entity / Location</h3><canvas id="locationChart" height="200"></canvas></div>
+      <div class="card full">
+        <h3>Sample Deficiencies by Cycle &amp; Auditor</h3>
+        <table>
+          <thead><tr><th>Auditor</th><th>Cycle</th><th>Entity</th><th>Period</th><th>Control #</th><th>Type</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>David</td><td>Financial Reporting</td><td>TIDS</td><td>2024</td><td>REV-C-2.1</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
+            <tr><td>David</td><td>Financial Reporting</td><td>TIDS</td><td>2024</td><td>FR-C-2.2b</td><td><span class="pill amber">OE</span></td><td><span class="pill green">Tested</span></td></tr>
+            <tr><td>Bharat</td><td>Payroll &amp; HR</td><td>TIP</td><td>2024</td><td>HR-US-2.1</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
+            <tr><td>Bharat</td><td>Revenue &amp; AR</td><td>WillowTree</td><td>2024</td><td>REV-C-1.3a</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
+            <tr><td>Bharat</td><td>Revenue &amp; AR</td><td>TIP</td><td>2025</td><td>REV-C-1.3</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
+            <tr><td>Yanin</td><td>P2P</td><td>TIAI</td><td>2024</td><td>P2P-C-1.4</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
+            <tr><td>Yanin</td><td>Treasury</td><td>TIHO</td><td>2025</td><td>TR-C-3.5</td><td><span class="pill amber">OE</span></td><td><span class="pill green">Tested</span></td></tr>
+            <tr><td>Yanin</td><td>Business Acquisitions</td><td>TIHO</td><td>2025</td><td>BA-C-1.7</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
+            <tr><td>Ivan</td><td>Revenue &amp; AR</td><td>TIE BG</td><td>2025</td><td>REV 1.3</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
+            <tr><td>Ivan</td><td>Financial Reporting</td><td>TIE TKY</td><td>2025</td><td>FR 2.1a</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
+            <tr><td>Ivan</td><td>Revenue &amp; AR</td><td>TINE</td><td>2025</td><td>REV 2.2c</td><td><span class="pill amber">OE</span></td><td><span class="pill green">Tested</span></td></tr>
+            <tr><td>Ivan</td><td>Payroll &amp; HR</td><td>TIE TKY</td><td>2025</td><td>HR 2.4a</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
+            <tr><td>Freddo</td><td>Revenue &amp; AR</td><td>TIHO</td><td>2024</td><td>REV-C-1.3a</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
+            <tr><td>Freddo</td><td>Financial Reporting</td><td>TIHO</td><td>2025</td><td>FR-C-4.7</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
 
-  <div class="section-title">Highbond Internal Audit Items (17 Active)</div>
-  <div class="chart-grid cols-3">
-    <div class="card"><h3>By Business Unit</h3><canvas id="hbBUChart" height="220"></canvas></div>
-    <div class="card"><h3>Status Breakdown</h3><canvas id="hbStatusChart" height="220"></canvas></div>
-    <div class="card"><h3>Source / Audit Type</h3><canvas id="hbSourceChart" height="220"></canvas></div>
-  </div>
+    <!-- IT SOX -->
+    <div class="sub-title">IT SOX Deficiencies (31 Total)</div>
+    <div class="chart-grid cols-3">
+      <div class="card"><h3>By IT Process</h3><canvas id="itProcessChart" height="220"></canvas></div>
+      <div class="card"><h3>By Risk Level</h3><canvas id="itRiskChart" height="220"></canvas></div>
+      <div class="card"><h3>2024 vs 2025</h3><canvas id="itPeriodChart" height="220"></canvas></div>
+      <div class="card full">
+        <h3>IT SOX Deficiencies Detail</h3>
+        <table>
+          <thead><tr><th>Application / System</th><th>Period</th><th>IT Process</th><th>Control</th><th>Risk</th><th>Entity</th></tr></thead>
+          <tbody>
+            <tr><td>Payroll – Evolution (GT,SV) DB</td><td>2024</td><td>IT-Access Management</td><td>AM.03.01 – Local Auth Config</td><td class="risk-L">L</td><td>TELUS Digital GT/SV</td></tr>
+            <tr><td>Linux OS (DE)</td><td>2024</td><td>IT-Access Management</td><td>AM.03.01 – Local Auth Config</td><td class="risk-L">L</td><td>TELUS Digital DE</td></tr>
+            <tr><td>Certinia (WillowTree)</td><td>2024</td><td>IT-Change Management</td><td>CM.01.02 – App &amp; DB Changes</td><td class="risk-M">M</td><td>WillowTree</td></tr>
+            <tr><td>QlikView (DE)</td><td>2024</td><td>IT-Change Management</td><td>CM.01.02 – App &amp; DB Changes</td><td class="risk-L">L</td><td>TELUS Digital DE</td></tr>
+            <tr><td>Time Attendance Mgmt (TAM) (DE)</td><td>2024</td><td>IT-Change Management</td><td>CM.01.02 / CM.03.01</td><td class="risk-L">L</td><td>TELUS Digital DE</td></tr>
+            <tr><td>Workday</td><td>2024</td><td>IT-Change Management</td><td>CM.04.01 – Logs Review</td><td class="risk-H">H</td><td>TELUS Digital</td></tr>
+            <tr><td>Diligent One Platform</td><td>2025</td><td>IT-Access Management</td><td>AM.03.01 – Local Auth Config</td><td class="risk-L">L</td><td>TELUS Digital</td></tr>
+            <tr><td>Global Time Tracker (GTT) DB</td><td>2025</td><td>IT-Access Management</td><td>AM.03.06 – Privileged Credentials</td><td class="risk-L">L</td><td>TELUS Digital</td></tr>
+            <tr><td>Certinia (WillowTree)</td><td>2025</td><td>IT-Access Management</td><td>AM.04.02 – Elevated Access</td><td class="risk-M">M</td><td>WillowTree</td></tr>
+            <tr><td>Google Workspace</td><td>2025</td><td>IT-Access Management</td><td>AM.03.01 – Local Auth Config</td><td class="risk-L">L</td><td>TELUS Digital</td></tr>
+            <tr><td>Workday</td><td>2025</td><td>IT-Access Management</td><td>AM.04.04 – WD Approvers Annual Review</td><td class="risk-H">H</td><td>TELUS Digital</td></tr>
+            <tr><td>Okta (WillowTree)</td><td>2025</td><td>IT-Access Management</td><td>AM.02.01 – Normal Accounts</td><td class="risk-M">M</td><td>WillowTree</td></tr>
+            <tr><td>Google Cloud Platform (GCP)</td><td>2025</td><td>IT-Change Management</td><td>CM.01.01 – Infra Changes</td><td class="risk-M">M</td><td>TELUS Digital</td></tr>
+            <tr><td>QlikView (DE)</td><td>2025</td><td>IT-Access Mgmt / Change Mgmt</td><td>AM.04.01 / CM.01.02 / CM.03.01</td><td class="risk-L">L</td><td>TELUS Digital DE</td></tr>
+            <tr><td>DataCentre (DE)</td><td>2025</td><td>IT-Computer Operations</td><td>CO.01.01 – Data Centre Security</td><td class="risk-L">L</td><td>TELUS Digital DE</td></tr>
+            <tr><td>Network (DE)</td><td>2025</td><td>IT-Computer Operations</td><td>CO.08.01 / CO.08.02 – Firewall / IDS</td><td class="risk-L">L</td><td>TELUS Digital DE</td></tr>
+            <tr><td>Active Directory (DE)</td><td>2025</td><td>IT-Change Management</td><td>CM.02.03 – Patches</td><td class="risk-L">L</td><td>TELUS Digital DE</td></tr>
+            <tr><td>Payroll – Delta (TR)</td><td>2025</td><td>IT-Access Mgmt / Change Mgmt</td><td>AM.04.02 / AM.04.03 / AM.03.01 / CM.02.03</td><td class="risk-L">L</td><td>TELUS Digital Turkiye</td></tr>
+            <tr><td>Luca (TR)</td><td>2025</td><td>IT-Access Management</td><td>AM.04.03 / AM.02.02 – Privileged Access</td><td class="risk-L">L</td><td>TELUS Digital Turkiye</td></tr>
+            <tr><td>Payroll – Charisma (RO)</td><td>2025</td><td>IT-Access Management</td><td>AM.04.02 – Elevated Access</td><td class="risk-L">L</td><td>TELUS Digital RO</td></tr>
+            <tr><td>MariaDB (DE)</td><td>2025</td><td>IT-Change Management</td><td>CM.02.02 – UAT Approval</td><td class="risk-L">L</td><td>TELUS Digital DE</td></tr>
+            <tr><td>TAM (DE)</td><td>2025</td><td>IT-Access Mgmt / Change Mgmt</td><td>AM.01.02 / CM.04.01</td><td class="risk-L">L</td><td>TELUS Digital DE</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-  <div class="section-title">Strategic Action Items</div>
-  <div class="chart-grid cols-2">
-    <div class="card wide">
+    <!-- Highbond -->
+    <div class="sub-title">Highbond Internal Audit Items (16 Active — CIO &amp; Corporate)</div>
+    <div class="chart-grid cols-3">
+      <div class="card"><h3>By Business Unit</h3><canvas id="hbBUChart" height="220"></canvas></div>
+      <div class="card"><h3>Status</h3><canvas id="hbStatusChart" height="220"></canvas></div>
+      <div class="card"><h3>Source / Audit Type</h3><canvas id="hbSourceChart" height="220"></canvas></div>
+    </div>
+
+    <!-- Strategic Actions -->
+    <div class="sub-title">Strategic Action Items</div>
+    <div class="card">
       <h3>Value-Added Recommendations — Finance Leadership</h3>
-      <ul class="action-list">
-        <li><span class="num">1</span><span><strong>Executive Accountability Framework</strong> — Establish a cross-functional leadership team to transform all 2024 and 2025 audit findings into systematic process improvements and new standards. <em>(Owner: Finance | Target: Feb 5, 2026)</em></span></li>
+      <ul class="action-list" style="margin-top:4px">
+        <li><span class="num">1</span><span><strong>Executive Accountability Framework</strong> — Establish a cross-functional leadership team to transform all 2024 and 2025 audit findings into systematic process improvements. <em>(Owner: Finance | Target: Feb 5, 2026)</em></span></li>
         <li><span class="num">2</span><span><strong>AI-Driven Invoice Review</strong> — Utilize AI across all regions to automate invoice reviews for compliance with customer agreements and SLAs. <em>(Owner: Finance | Target: Feb 5, 2026)</em></span></li>
         <li><span class="num">3</span><span><strong>Global Deployment of Invoicing Tracker</strong> — Roll out to Europe and APAC regions to eliminate regional disparities in financial controls. <em>(Owner: Finance | Target: Apr 24, 2026)</em></span></li>
         <li><span class="num">4</span><span><strong>Billing Best Practices Protocol</strong> — Review and identify regional best practices for billing assurance and establish communication standards. <em>(Owner: Finance | Target: May 4, 2026)</em></span></li>
@@ -281,122 +307,223 @@
         <li><span class="num">6</span><span><strong>Best Practice Learnings Summary</strong> — Consolidate learnings from 2024 and 2025 Billing Assurance Audits for cross-regional distribution. <em>(Owner: Finance)</em></span></li>
       </ul>
     </div>
+
+  </main>
+</div><!-- /tab-digital -->
+
+
+<!-- ══════════════════════════════════════════
+     TELUS HEALTH
+══════════════════════════════════════════ -->
+<div id="tab-health" class="tab-panel">
+
+  <div class="section-banner health">
+    <div>
+      <h2>TELUS Health</h2>
+      <p>IHS Review Findings · Highbond Internal Audit Items</p>
+    </div>
+    <div class="tag">6 Findings · 6 Highbond Items</div>
   </div>
 
-  <div class="section-title">SOX Business — Top Deficiencies by Cycle &amp; Auditor</div>
-  <div class="card">
-    <table>
-      <thead><tr><th>Auditor</th><th>Cycle</th><th>Entity</th><th>Period</th><th>Control #</th><th>Type</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td>David</td><td>Financial Reporting</td><td>TIDS</td><td>2024</td><td>REV-C-2.1</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
-        <tr><td>David</td><td>Financial Reporting</td><td>TIDS</td><td>2024</td><td>FR-C-2.2b</td><td><span class="pill amber">OE</span></td><td><span class="pill green">Tested</span></td></tr>
-        <tr><td>David</td><td>Revenue &amp; AR</td><td>TIDS</td><td>2024</td><td>REV-C-1.3</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
-        <tr><td>Bharat</td><td>Payroll &amp; HR</td><td>TIP</td><td>2024</td><td>HR-US-2.1</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
-        <tr><td>Bharat</td><td>Revenue &amp; AR</td><td>WillowTree</td><td>2024</td><td>REV-C-1.3a</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
-        <tr><td>Bharat</td><td>Revenue &amp; AR</td><td>TIP</td><td>2025</td><td>REV-C-1.3</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
-        <tr><td>Yanin</td><td>P2P</td><td>TIAI</td><td>2024</td><td>P2P-C-1.4</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
-        <tr><td>Yanin</td><td>Treasury</td><td>TIHO</td><td>2025</td><td>TR-C-3.5</td><td><span class="pill amber">OE</span></td><td><span class="pill green">Tested</span></td></tr>
-        <tr><td>Yanin</td><td>Business Acquisitions</td><td>TIHO</td><td>2025</td><td>BA-C-1.7</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
-        <tr><td>Ivan</td><td>Revenue &amp; AR</td><td>TIE BG</td><td>2025</td><td>REV 1.3</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
-        <tr><td>Ivan</td><td>Financial Reporting</td><td>TIE TKY</td><td>2025</td><td>FR 2.1a</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
-        <tr><td>Ivan</td><td>Revenue &amp; AR</td><td>TINE</td><td>2025</td><td>REV 2.2c</td><td><span class="pill amber">OE</span></td><td><span class="pill green">Tested</span></td></tr>
-        <tr><td>Ivan</td><td>Payroll &amp; HR</td><td>TIE TKY</td><td>2025</td><td>HR 2.4a</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
-        <tr><td>Ivan</td><td>Payroll &amp; HR</td><td>TIE TKY</td><td>2025</td><td>HR 2.5</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
-        <tr><td>Freddo</td><td>Revenue &amp; AR</td><td>TIHO</td><td>2024</td><td>REV-C-1.3a</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
-        <tr><td>Freddo</td><td>Financial Reporting</td><td>TIHO</td><td>2025</td><td>FR-C-4.7</td><td><span class="pill purple">Design</span></td><td><span class="pill green">Tested</span></td></tr>
-      </tbody>
-    </table>
-  </div>
+  <main>
 
-</main>
+    <!-- KPIs -->
+    <div class="sub-title teal">Overview</div>
+    <div class="kpi-grid">
+      <div class="kpi" style="--accent:#00B0B2">
+        <div class="value">6</div>
+        <div class="label">IHS Review Findings</div>
+        <div class="sub">High: 1 &nbsp;|&nbsp; Low: 5</div>
+      </div>
+      <div class="kpi" style="--accent:#66CC00">
+        <div class="value">3</div>
+        <div class="label">Completed</div>
+        <div class="sub">REV-IHS-M1, M2, PEFR-02-06</div>
+      </div>
+      <div class="kpi" style="--accent:#C12335">
+        <div class="value">3</div>
+        <div class="label">Not Started</div>
+        <div class="sub">AR-04-05, REV-IHS-02-03, REV-IHS-04-01</div>
+      </div>
+      <div class="kpi" style="--accent:#00B0B2">
+        <div class="value">6</div>
+        <div class="label">Highbond IA Items</div>
+        <div class="sub">TBS/TAC/TH: 5 &nbsp;|&nbsp; Imported: 1</div>
+      </div>
+      <div class="kpi" style="--accent:#F5A623">
+        <div class="value">0</div>
+        <div class="label">Overdue Remediations</div>
+        <div class="sub">All IHS findings within timeline</div>
+      </div>
+    </div>
 
-<footer style="text-align:center; padding: 24px; font-size:0.72rem; color:var(--muted); border-top:1px solid var(--border); margin-top:32px;">
+    <!-- IHS Findings -->
+    <div class="sub-title teal">IHS Review Findings (6 Total)</div>
+    <div class="chart-grid cols-4">
+      <div class="card"><h3 class="teal">By Risk Level</h3><canvas id="thRiskChart" height="200"></canvas></div>
+      <div class="card"><h3 class="teal">Remediation Status</h3><canvas id="thStatusChart" height="200"></canvas></div>
+      <div class="card wide">
+        <h3 class="teal">By Process</h3>
+        <canvas id="thProcessChart" height="200"></canvas>
+      </div>
+      <div class="card full">
+        <h3 class="teal">Finding Details</h3>
+        <table>
+          <thead>
+            <tr>
+              <th class="teal-header">Finding ID</th>
+              <th class="teal-header">Date Identified</th>
+              <th class="teal-header">Process</th>
+              <th class="teal-header">Risk</th>
+              <th class="teal-header">Sub-Process / Control</th>
+              <th class="teal-header">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>AR-04-05</td><td>Apr 24, 2026</td><td>Record-to-Report / Financial Reporting</td><td class="risk-L">Low</td><td>Monthly Trade AR Reconciliation Review</td><td><span class="pill purple">Not Started</span></td></tr>
+            <tr><td>REV-IHS-02-03</td><td>May 4, 2026</td><td>Order-to-Cash / Revenue</td><td class="risk-H">High</td><td>QA Review of Symphoni New Businesses, Updates &amp; Terminations</td><td><span class="pill purple">Not Started</span></td></tr>
+            <tr><td>REV-IHS-M1</td><td>Feb 5, 2026</td><td>Order-to-Cash / Revenue</td><td class="risk-L">Low</td><td>Review of IHS Invoices Out of Workday</td><td><span class="pill green">Completed</span></td></tr>
+            <tr><td>REV-IHS-M2</td><td>Feb 5, 2026</td><td>Order-to-Cash / Revenue</td><td class="risk-L">Low</td><td>Review of IHS Credits and Cancellations</td><td><span class="pill green">Completed</span></td></tr>
+            <tr><td>PEFR-02-06</td><td>Feb 9, 2026</td><td>Record-to-Report / Financial Reporting</td><td class="risk-L">Low</td><td>VP Finance Approval of Manual JEs After Cutoff</td><td><span class="pill green">Completed</span></td></tr>
+            <tr><td>REV-IHS-04-01</td><td>May 12, 2026</td><td>Order-to-Cash / Revenue</td><td class="risk-L">Low</td><td>Monthly Reconciliation: Symphoni vs Workday</td><td><span class="pill purple">Not Started</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Highbond TH -->
+    <div class="sub-title teal">Highbond Internal Audit Items (6 — TBS/TAC/TH)</div>
+    <div class="chart-grid cols-3">
+      <div class="card"><h3 class="teal">By Business Unit</h3><canvas id="thHBBUChart" height="220"></canvas></div>
+      <div class="card"><h3 class="teal">Status</h3><canvas id="thHBStatusChart" height="220"></canvas></div>
+      <div class="card">
+        <h3 class="teal">Summary</h3>
+        <table style="margin-top:4px">
+          <thead><tr><th class="teal-header">Business Unit</th><th class="teal-header">Source</th><th class="teal-header">Status</th><th class="teal-header">Count</th></tr></thead>
+          <tbody>
+            <tr><td>TELUS Business Solutions / TAC / TH</td><td>Highbond</td><td><span class="pill teal">In Progress</span></td><td>5</td></tr>
+            <tr><td>Order-to-Cash / Revenue</td><td>Import TELUS Health</td><td><span class="pill purple">Not Started</span></td><td>2</td></tr>
+            <tr><td>Record-to-Report / Financial Reporting</td><td>Import TELUS Health</td><td><span class="pill purple">Not Started</span></td><td>1</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div><!-- /tab-health -->
+
+<footer style="text-align:center; padding: 20px; font-size:0.7rem; color:var(--muted); border-top:1px solid var(--border); margin-top:32px;">
   IC Support &mdash; Confidential &mdash; Generated May 29, 2026 &nbsp;|&nbsp; Source: IC Support Tracker (Google Sheets)
 </footer>
 
 <script>
-  const purple = '#4B286D';
-  const green  = '#66CC00';
-  const teal   = '#00B0B2';
-  const amber  = '#F5A623';
-  const red    = '#C12335';
+  const purple   = '#4B286D';
+  const green    = '#66CC00';
+  const teal     = '#00B0B2';
+  const amber    = '#F5A623';
+  const red      = '#C12335';
   const ltPurple = '#8B5AAF';
 
-  const defaults = {
+  const def = {
     plugins: { legend: { labels: { font: { size: 11 }, boxWidth: 12 } } },
-    responsive: true,
-    maintainAspectRatio: true,
+    responsive: true, maintainAspectRatio: true,
   };
 
+  // ── Tab switching ──
+  function showTab(name, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // ── TELUS DIGITAL ──
   new Chart(document.getElementById('cycleChart'), {
     type: 'bar',
     data: { labels: ['Revenue & AR','Payroll & HR','Financial Reporting','P2P','Capital Assets','Treasury','Bus. Acq.'], datasets: [{ data: [23,10,9,7,6,5,2], backgroundColor: purple, borderRadius: 4 }] },
-    options: { ...defaults, indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { grid: { color: '#eee' } } } }
+    options: { ...def, indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { grid: { color: '#eee' } } } }
   });
   new Chart(document.getElementById('typeChart'), {
     type: 'doughnut',
     data: { labels: ['Design','Operational Effectiveness (OE)'], datasets: [{ data: [37, 23], backgroundColor: [purple, teal], borderWidth: 2 }] },
-    options: { ...defaults, cutout: '65%', plugins: { legend: { position: 'bottom' } } }
+    options: { ...def, cutout: '65%', plugins: { legend: { position: 'bottom' } } }
   });
   new Chart(document.getElementById('auditorChart'), {
     type: 'bar',
     data: { labels: ['Ivan','David','Yanin','Bharat','Freddo','Other'], datasets: [{ data: [17,16,14,11,2,2], backgroundColor: [purple, ltPurple, teal, green, amber, '#ccc'], borderRadius: 4 }] },
-    options: { ...defaults, plugins: { legend: { display: false } }, scales: { y: { grid: { color: '#eee' } } } }
+    options: { ...def, plugins: { legend: { display: false } }, scales: { y: { grid: { color: '#eee' } } } }
   });
   new Chart(document.getElementById('periodChart'), {
     type: 'doughnut',
     data: { labels: ['2025','2024'], datasets: [{ data: [40, 22], backgroundColor: [teal, amber], borderWidth: 2 }] },
-    options: { ...defaults, cutout: '60%', plugins: { legend: { position: 'bottom' } } }
+    options: { ...def, cutout: '60%', plugins: { legend: { position: 'bottom' } } }
   });
   new Chart(document.getElementById('statusChart'), {
     type: 'doughnut',
     data: { labels: ['Tested','Remediated TBT','Other'], datasets: [{ data: [58, 2, 2], backgroundColor: [green, teal, '#ccc'], borderWidth: 2 }] },
-    options: { ...defaults, cutout: '60%', plugins: { legend: { position: 'bottom' } } }
+    options: { ...def, cutout: '60%', plugins: { legend: { position: 'bottom' } } }
   });
   new Chart(document.getElementById('locationChart'), {
     type: 'bar',
     data: { labels: ['TIE TKY','TINE','TIHO','WillowTree','TIAI','TIDS','TIE BG','TIP','Other'], datasets: [{ data: [9,7,6,5,3,2,2,2,3], backgroundColor: purple, borderRadius: 4 }] },
-    options: { ...defaults, indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { grid: { color: '#eee' } } } }
+    options: { ...def, indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { grid: { color: '#eee' } } } }
   });
   new Chart(document.getElementById('itProcessChart'), {
     type: 'doughnut',
     data: { labels: ['IT-Access Management','IT-Change Management','IT-Computer Operations'], datasets: [{ data: [16,12,3], backgroundColor: [purple, teal, green], borderWidth: 2 }] },
-    options: { ...defaults, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { font: { size: 10 } } } } }
+    options: { ...def, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { font: { size: 10 } } } } }
   });
   new Chart(document.getElementById('itRiskChart'), {
     type: 'bar',
     data: { labels: ['High','Medium','Low'], datasets: [{ data: [2,4,25], backgroundColor: [red, amber, green], borderRadius: 4 }] },
-    options: { ...defaults, plugins: { legend: { display: false } }, scales: { y: { grid: { color: '#eee' } } } }
+    options: { ...def, plugins: { legend: { display: false } }, scales: { y: { grid: { color: '#eee' } } } }
   });
   new Chart(document.getElementById('itPeriodChart'), {
     type: 'bar',
     data: { labels: ['2024','2025'], datasets: [{ data: [7,24], backgroundColor: [amber, purple], borderRadius: 4, barThickness: 40 }] },
-    options: { ...defaults, plugins: { legend: { display: false } }, scales: { y: { grid: { color: '#eee' } } } }
+    options: { ...def, plugins: { legend: { display: false } }, scales: { y: { grid: { color: '#eee' } } } }
   });
+  new Chart(document.getElementById('hbBUChart'), {
+    type: 'bar',
+    data: { labels: ['CIO','Corporate Affairs & Finance'], datasets: [{ data: [15,1], backgroundColor: purple, borderRadius: 4 }] },
+    options: { ...def, indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { grid: { color: '#eee' } } } }
+  });
+  new Chart(document.getElementById('hbStatusChart'), {
+    type: 'doughnut',
+    data: { labels: ['In Progress','Not Started'], datasets: [{ data: [16,0], backgroundColor: [teal, '#CCCCDD'], borderWidth: 2 }] },
+    options: { ...def, cutout: '60%', plugins: { legend: { position: 'bottom' } } }
+  });
+  new Chart(document.getElementById('hbSourceChart'), {
+    type: 'doughnut',
+    data: { labels: ['Highbond'], datasets: [{ data: [16], backgroundColor: [purple], borderWidth: 2 }] },
+    options: { ...def, cutout: '60%', plugins: { legend: { position: 'bottom' } } }
+  });
+
+  // ── TELUS HEALTH ──
   new Chart(document.getElementById('thRiskChart'), {
     type: 'doughnut',
     data: { labels: ['High','Low'], datasets: [{ data: [1,5], backgroundColor: [red, teal], borderWidth: 2 }] },
-    options: { ...defaults, cutout: '60%', plugins: { legend: { position: 'bottom' } } }
+    options: { ...def, cutout: '60%', plugins: { legend: { position: 'bottom' } } }
   });
   new Chart(document.getElementById('thStatusChart'), {
     type: 'doughnut',
     data: { labels: ['Completed','Not Started'], datasets: [{ data: [3,3], backgroundColor: [green, '#CCCCDD'], borderWidth: 2 }] },
-    options: { ...defaults, cutout: '60%', plugins: { legend: { position: 'bottom' } } }
+    options: { ...def, cutout: '60%', plugins: { legend: { position: 'bottom' } } }
   });
-  new Chart(document.getElementById('hbBUChart'), {
+  new Chart(document.getElementById('thProcessChart'), {
     type: 'bar',
-    data: { labels: ['CIO','TBS/TAC/TH','Corporate Affairs & Finance','TELUS Health (Imported)'], datasets: [{ data: [15,5,1,1], backgroundColor: purple, borderRadius: 4 }] },
-    options: { ...defaults, indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { grid: { color: '#eee' } } } }
+    data: { labels: ['Order-to-Cash / Revenue','Record-to-Report / Financial Reporting'], datasets: [{ data: [4,2], backgroundColor: [teal, '#007F80'], borderRadius: 4 }] },
+    options: { ...def, indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { grid: { color: '#eee' }, ticks: { stepSize: 1 } } } }
   });
-  new Chart(document.getElementById('hbStatusChart'), {
-    type: 'doughnut',
-    data: { labels: ['In Progress','Not Started'], datasets: [{ data: [16,1], backgroundColor: [teal, '#CCCCDD'], borderWidth: 2 }] },
-    options: { ...defaults, cutout: '60%', plugins: { legend: { position: 'bottom' } } }
+  new Chart(document.getElementById('thHBBUChart'), {
+    type: 'bar',
+    data: { labels: ['TBS / TAC / TH','TELUS Health (Imported)'], datasets: [{ data: [5,1], backgroundColor: teal, borderRadius: 4 }] },
+    options: { ...def, indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { grid: { color: '#eee' }, ticks: { stepSize: 1 } } } }
   });
-  new Chart(document.getElementById('hbSourceChart'), {
+  new Chart(document.getElementById('thHBStatusChart'), {
     type: 'doughnut',
-    data: { labels: ['Highbond','Import TELUS Health'], datasets: [{ data: [16,1], backgroundColor: [purple, teal], borderWidth: 2 }] },
-    options: { ...defaults, cutout: '60%', plugins: { legend: { position: 'bottom' } } }
+    data: { labels: ['In Progress','Not Started'], datasets: [{ data: [5,3], backgroundColor: [teal, '#CCCCDD'], borderWidth: 2 }] },
+    options: { ...def, cutout: '60%', plugins: { legend: { position: 'bottom' } } }
   });
 </script>
 </body>
